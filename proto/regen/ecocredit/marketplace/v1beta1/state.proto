@@ -113,16 +113,16 @@ message BuyOrder {
     bool maker = 9;
 }
 
-// AllowedDenom represents the information for an allowed ask/bid denom.
+// AllowedDenom represents the information for an allowed ask/bid base denom.
 message AllowedDenom {
     option (cosmos.orm.v1alpha1.table) = {
         id: 3
-        primary_key: {fields: "bank_denom"}
+        primary_key: {fields: "base_denom"}
         index: {id: 1 fields: "display_denom", unique: true}
     };
 
-    // denom is the bank denom to allow (ex. ibc/GLKHDSG423SGS)
-    string bank_denom = 1;
+    // base is the bank denom to allow (ex. ibc/GLKHDSG423SGS)
+    string base_denom = 1;
 
     // display_denom is the denom to display to the user and is informational.
     // Because the denom is likely an IBC denom, this should be chosen by
@@ -147,7 +147,7 @@ message Market {
     option (cosmos.orm.v1alpha1.table) = {
         id: 4
         primary_key: {fields: "id"}
-        index: {id: 1 fields: "credit_type,bank_denom", unique: true}
+        index: {id: 1 fields: "credit_type,base_denom", unique: true}
     };
 
     // id is the unique ID of the market.
@@ -156,8 +156,8 @@ message Market {
     // credit_type is the abbreviation of the credit type.
     string credit_type = 2;
 
-    // bank_denom is an allowed bank denom.
-    string bank_denom = 3;
+    // base_denom is an allowed bank denom.
+    string base_denom = 3;
 
     // precision_modifier is an optional modifier used to convert arbitrary
     // precision integer bank amounts to uint64 values used for sorting in the
